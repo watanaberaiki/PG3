@@ -26,5 +26,7 @@ int main() {
 	//double
 	printf("%lf\n", Min<double>(3.0,3.0));
 	//char
-	printf("%c\n", Min<char>('a','b'));
+	Min<char>('a', 'b');
+
+	return 0;
 }
