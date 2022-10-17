@@ -3,43 +3,74 @@
 #include <time.h>
 #include<windows.h>
 
-typedef void (*newType)(int *second);
+typedef void (*PFunc)(int*,int*);
 
 //コールバック関数
-void callback(int *second) {
-	printf("%d秒待ちます\n", *second);
+void Callback(int* second,int* predict) {
+	printf("結果\n");
 }
 
-void setTimeout(newType wait,int second) {
-	Sleep(second*1000);
+//何秒か待って関数を呼ぶ
+void SetTimeout(PFunc p, int second, int predict) {
+	//待つ
+	Sleep(second * 1000);
+	
+	//呼び出し
+	p(&second,&predict);
+}
 
-	wait(&second);
+//結果判定
+void Result(int *second,int* predict) {
+	//ランダム
+	int ramdom = rand() % 6 + 1;
+	
+	//奇数の場合
+	if (*predict ==1 ) {
+		if (ramdom % 2 == 1) {
+			printf("正解です!\n%dが抽選で選ばれました",ramdom);
+		}
+		else {
+			printf("不正解です\n%dが抽選で選ばれました", ramdom);
+		}
+	}
+
+	//偶数の場合
+	else if (*predict == 2) {
+		if (ramdom % 2  == 0) {
+			printf("正解です!\n%dが抽選で選ばれました", ramdom);
+		}
+		else {
+			printf("不正解です\n%dが抽選で選ばれました", ramdom);
+		}
+	}
+	//違う値が入力された場合
+	else {
+		printf("不適切な値が入力されました");
+	}
 }
 
 int main() {
-	//関数ポインタ
-	newType wait;
+
 	//ランダム用
 	srand((unsigned int)time(NULL));
+	int ramdom = rand() % 6 + 1;
+
 
 	//奇数か偶数か入力
-	int num = 0;
-	printf("奇数を入力したら奇数が出力され、偶数が入力されたら偶数が出力されます。");
-	scanf_s("%d", &num);
+	int predict = 0;
+	printf("奇数だと思うなら1を、偶数だと思うなら２を入力してください。");
+	scanf_s("%d", &predict);
 
+	//関数ポインタ
+	PFunc p;
+	
 	//少し待つ
-	wait = callback;
-	setTimeout(wait, 5);
-	//出力
-	if (num % 2 == 0) {
-		printf("偶数:%d", (rand() % 100+1) * 2);
-	}
-	else if (num%2==1) {
-		printf("奇数:%d", (rand() % 100+1) * 2 + 1);
-	}
-	else {
-
-	}
+	p = Callback;
+	SetTimeout(p, 3, predict);
+	
+	//結果出力
+	p = Result;
+	SetTimeout(p, 0, predict);
 
 	return 0;
 }
