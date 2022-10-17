@@ -1,37 +1,44 @@
 #include <stdio.h>
-//一般的な賃金形態の計算
-int TimeMoney(int time, int money) {
-	return time* money;
+#include <stdlib.h>
+#include <time.h>
+#include<windows.h>
+
+typedef void (*newType)(int *second);
+
+//コールバック関数
+void callback(int *second) {
+	printf("%d秒待ちます\n", *second);
 }
 
-//再帰的な賃金形態の計算
-//時間が一定数以下になるまで呼び出す
-int Recursion(int time,int money) {
-	time--;
-	
-	if (time<1) {
-		return money;
-	}
+void setTimeout(newType wait,int second) {
+	Sleep(second*1000);
 
-	return Recursion(time,money * 2 - 50);
+	wait(&second);
 }
 
 int main() {
-	int time = 100;				//時間
-	int money = 1072;			//一般的な賃金形態
-	int recursionMoney = 100;	//再帰的な賃金形態
+	//関数ポインタ
+	newType wait;
+	//ランダム用
+	srand((unsigned int)time(NULL));
 
+	//奇数か偶数か入力
+	int num = 0;
+	printf("奇数を入力したら奇数が出力され、偶数が入力されたら偶数が出力されます。");
+	scanf_s("%d", &num);
 
-	//一般的な賃金形態と再帰的な賃金形態の比較
-	for (int i = 1; i < time; i++)
-	{
-		printf("%d時間働いた場合\n", i);
-		printf("一般的な賃金体態:%d\n", TimeMoney(i, money));
-		printf("再起的な賃金体態:%d\n\n", Recursion(i, recursionMoney));
-		if (TimeMoney(i, money) < Recursion(i, recursionMoney))
-		{
-			break;
-		}
+	//少し待つ
+	wait = callback;
+	setTimeout(wait, 5);
+	//出力
+	if (num % 2 == 0) {
+		printf("偶数:%d", (rand() % 100+1) * 2);
+	}
+	else if (num%2==1) {
+		printf("奇数:%d", (rand() % 100+1) * 2 + 1);
+	}
+	else {
+
 	}
 
 	return 0;
