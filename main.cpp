@@ -3,56 +3,64 @@
 #include <time.h>
 #include<windows.h>
 #include<functional>
+#include<list>
 
-int main(int argc, const char*argy[]) {
+int main() {
 
-	//ランダム
-	srand((unsigned int)time(NULL));
-	int ramdom = rand() % 6 + 1;
+	//カウント用
+	int count = 0;
 
-	//時間
-	int second = 3;
-	
-	
-	//奇数か偶数か入力
-	int predict = 0;
-	printf("奇数だと思うなら1を、偶数だと思うなら２を入力してください。");
-	scanf_s("%d", &predict);
+	//駅のリスト
+	std::list <const char*> station{"Tokyo","Kanda","Akihabara","Okachimachi","Ueno",
+							"Uguisudani","Nippori","Tabata","Komagome","Sugamo",
+							"Ootsuka","Ikebukuro","Mejiro","Takadanobata","Shinookubo",
+							"Shinjuku","Yoyogi","Harajuku","Shibuya","Ebisu",
+							"Meguro","Gotanda","Oosaki","Shinagawa","Tamachi",
+							"Hamamatsutyou","Shinbashi","Yuurakutyou"};
 
-	//少し待つ
-	std::function<int(int)>Timeout = [](int second) {Sleep(second * 1000); return 0; };
-	Timeout(second);
 
-	//結果判定と出力
-	std::function<int(int)>Result = [predict](int ramdom) {
-	//奇数の場合
-		if (predict ==1 ) {
-			if (ramdom % 2 == 1) {
-				printf("正解です!\n%dが抽選で選ばれました",ramdom);
-			}
-			else {
-				printf("不正解です\n%dが抽選で選ばれました", ramdom);
-			}
+	printf("1970年\n-------------\n");
+	//駅名を表示
+	for (std::list<const char*>::iterator itr = station.begin(); itr != station.end(); ++itr) {
+		++count;
+		printf("駅名:%s-----%d\n", *itr, count);
+	}
+	count = 0;
+
+
+	printf("-------------\n2019年-------------\n");
+	//西日暮里駅を追加
+	for (std::list<const char*>::iterator itr = station.begin(); itr != station.end(); ++itr) {
+		if (*itr == "Nippori") {
+			itr = station.insert(itr, "Nisinippori");
+			++itr;
 		}
-	
-		//偶数の場合
-		else if (predict == 2) {
-			if (ramdom % 2  == 0) {
-				printf("正解です!\n%dが抽選で選ばれました", ramdom);
-			}
-			else {
-				printf("不正解です\n%dが抽選で選ばれました", ramdom);
-			}
-		}
-		//違う値が入力された場合
-		else {
-			printf("不適切な値が入力されました");
-		}
-		return 0;
-	};
+	}
+	//駅名を表示
+	for (std::list<const char*>::iterator itr = station.begin(); itr != station.end(); ++itr) {
+		++count;
+		printf("駅名:%s-----%d\n", *itr,count);
+	}
+	count = 0;
 
-	//結果判定と出力
-	Result(ramdom);
-	
+
+
+	printf("-------------\n2022年\n");
+	//高輪ゲートウェイ駅を追加
+	for (std::list<const char*>::iterator itr = station.begin(); itr != station.end(); ++itr) {
+		if (*itr == "Shinagawa") {
+			itr = station.insert(itr, "Takanawa Gateway");
+			++itr;
+		}
+	}
+	//駅名を表示
+	for (std::list<const char*>::iterator itr = station.begin(); itr != station.end(); ++itr) {
+		++count;
+		printf("駅名:%s-----%d\n", *itr,count);
+	}
+	count = 0;
+	printf("-------------\n");
+
+
 	return 0;
 }
