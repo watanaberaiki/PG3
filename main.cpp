@@ -5,11 +5,6 @@
 
 typedef void (*PFunc)(int*,int*);
 
-//コールバック関数
-void Callback(int* second,int* predict) {
-	printf("結果\n");
-}
-
 //何秒か待って関数を呼ぶ
 void SetTimeout(PFunc p, int second, int predict) {
 	//待つ
@@ -64,13 +59,9 @@ int main() {
 	//関数ポインタ
 	PFunc p;
 	
-	//少し待つ
-	p = Callback;
-	SetTimeout(p, 3, predict);
-	
 	//結果出力
 	p = Result;
-	SetTimeout(p, 0, predict);
+	SetTimeout(p, 3, predict);
 
 	return 0;
 }
