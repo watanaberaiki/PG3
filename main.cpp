@@ -13,7 +13,7 @@ int Recursion(int time,int money) {
 		return money;
 	}
 
-	return Recursion(time,money+money * 2 - 50);
+	return Recursion(time,money * 2 - 50);
 }
 
 int main() {
