@@ -4,7 +4,7 @@
 #include<windows.h>
 #include<functional>
 
-int main(int argc, const char*argy[]) {
+int main() {
 
 	//ランダム
 	srand((unsigned int)time(NULL));
@@ -19,12 +19,12 @@ int main(int argc, const char*argy[]) {
 	printf("奇数だと思うなら1を、偶数だと思うなら２を入力してください。");
 	scanf_s("%d", &predict);
 
-	//少し待つ
-	std::function<int(int)>Timeout = [](int second) {Sleep(second * 1000); return 0; };
-	Timeout(second);
+	//時間を置く
+	std::function<void(int,int)>SetTimeout = [](int second,int ramdom) {Sleep(second * 1000); };
 
 	//結果判定と出力
-	std::function<int(int)>Result = [predict](int ramdom) {
+	std::function<void(int)>Result = [=](int ramdom) {
+		SetTimeout(second, ramdom);
 	//奇数の場合
 		if (predict ==1 ) {
 			if (ramdom % 2 == 1) {
@@ -51,7 +51,8 @@ int main(int argc, const char*argy[]) {
 		return 0;
 	};
 
-	//結果判定と出力
+
+	//結果判定
 	Result(ramdom);
 	
 	return 0;
