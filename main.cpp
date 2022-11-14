@@ -25,9 +25,6 @@ int main() {
 	//結果判定と出力
 	std::function<void(int)>Result = [=](int ramdom) {
 		
-		//時間を置く呼び出し
-		SetTimeout(second, ramdom);
-		
 		//奇数の場合
 		if (predict == 1) {
 			if (ramdom % 2 == 1) {
@@ -54,6 +51,8 @@ int main() {
 		return 0;
 	};
 
+	//時間を置く呼び出し
+	SetTimeout(second, ramdom);
 
 	//結果判定
 	Result(ramdom);
