@@ -20,6 +20,7 @@ int main() {
 	int time = 100;				//時間
 	int money = 1072;			//一般的な賃金形態
 	int recursionMoney = 100;	//再帰的な賃金形態
+	int memoryRecursionMoney = 0;	//再帰的な賃金形態の合計
 
 
 	//一般的な賃金形態と再帰的な賃金形態の比較
@@ -27,8 +28,8 @@ int main() {
 	{
 		printf("%d時間働いた場合\n", i);
 		printf("一般的な賃金体態:%d\n", TimeMoney(i, money));
-		printf("再起的な賃金体態:%d\n\n", Recursion(i, recursionMoney));
-		if (TimeMoney(i, money) < Recursion(i, recursionMoney))
+		printf("再起的な賃金体態:%d\n\n", memoryRecursionMoney+=Recursion(i, recursionMoney));
+		if (TimeMoney(i, money) < memoryRecursionMoney)
 		{
 			break;
 		}
