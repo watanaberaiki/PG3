@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<stdlib.h>
 //ˆê”Ê“I‚È’À‹àŒ`‘Ô‚ÌŒvZ
 int TimeMoney(int time, int money) {
 	return time* money;
@@ -34,6 +35,8 @@ int main() {
 			break;
 		}
 	}
+
+	system("pause");
 
 	return 0;
 }
