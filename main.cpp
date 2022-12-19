@@ -4,6 +4,8 @@
 #include<windows.h>
 #include<functional>
 
+
+
 int main() {
 
 	//ランダム
@@ -19,12 +21,11 @@ int main() {
 	printf("奇数だと思うなら1を、偶数だと思うなら２を入力してください。");
 	scanf_s("%d", &predict);
 
-	//時間を置く
-	std::function<void(int, int)>SetTimeout = [](int second, int ramdom) {Sleep(second * 1000); };
+
 
 	//結果判定と出力
 	std::function<void(int)>Result = [=](int ramdom) {
-		
+
 		//奇数の場合
 		if (predict == 1) {
 			if (ramdom % 2 == 1) {
@@ -51,11 +52,17 @@ int main() {
 		return 0;
 	};
 
-	//時間を置く呼び出し
-	SetTimeout(second, ramdom);
+	//時間を置く
+	std::function<void(int,int, std::function<void(int)>)>SetTimeout = [](int second,int ramdom, std::function<void(int)> Result)
+	{
+		Sleep(second * 1000);
+		
+		Result(ramdom);
+	};
 
-	//結果判定
-	Result(ramdom);
+
+	//時間を置く呼び出し
+	SetTimeout(second,ramdom, Result);
 
 	return 0;
 }
