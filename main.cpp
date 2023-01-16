@@ -53,7 +53,7 @@ int main() {
 	};
 
 	//ŠÔ‚ğ’u‚­
-	std::function<void(int,int, std::function<void(int)>)>SetTimeout = [](int second,int ramdom, std::function<void(int)> Result)
+	std::function<void(int, std::function<void(int)>)>SetTimeout = [=](int second, std::function<void(int)> Result)
 	{
 		Sleep(second * 1000);
 		
@@ -62,7 +62,7 @@ int main() {
 
 
 	//ŠÔ‚ğ’u‚­ŒÄ‚Ño‚µ
-	SetTimeout(second,ramdom, Result);
+	SetTimeout(second,Result);
 
 	return 0;
 }
