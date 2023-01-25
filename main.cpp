@@ -3,34 +3,30 @@
 #include <time.h>
 #include<windows.h>
 #include<functional>
-#include"SceneManager.h"
+#include"Enemy.h"
 
+int Enemy::enemyCount;
 
 int main() {
-	//インスタンス取得
-	SceneManager* sceneManager = SceneManager::GetInstance();
-	
-	int nextSceneNo = 1;
+	Enemy *enemy1=new Enemy;
+	Enemy *enemy2 = new Enemy;
+	Enemy *enemy3 = new Enemy;
+	int number = 0;
 
-	while (true) {
-		//待つ
-		Sleep(2 * 1000);
-		//表示
-		if (sceneManager->sceneNo % 4 == 0) {
-			printf("sceneNo:%d--Title\n", sceneManager->sceneNo % 4);
-		}else if (sceneManager->sceneNo % 4 == 1) {
-			printf("sceneNo:%d--NewGame\n", sceneManager->sceneNo % 4);
-		}
-		else if(sceneManager->sceneNo % 4 == 2) {
-			printf("sceneNo:%d--GamePlay\n", sceneManager->sceneNo % 4);
-		}
-		else if(sceneManager->sceneNo % 4 == 3) {
-			printf("sceneNo:%d--GameClear\n", sceneManager->sceneNo % 4);
-		}
-		//シーンチェンジ
-		sceneManager->ChangeScene(nextSceneNo);
-		nextSceneNo++;
+	printf("現在の敵の数:%d\n",Enemy::enemyCount);
+
+	printf("1~3の数字を入力してください\n");
+	scanf_s("%d", &number);
+	if (number == 1) {
+		delete enemy1;
 	}
+	else if (number == 2) {
+		delete enemy2;
+	}
+	else if (number == 3) {
+		delete enemy3;
+	}
+	printf("現在の敵の数:%d", Enemy::enemyCount);
 
 	system("pause");
 	return 0;
