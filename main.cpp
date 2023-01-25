@@ -3,66 +3,35 @@
 #include <time.h>
 #include<windows.h>
 #include<functional>
-
+#include"SceneManager.h"
 
 
 int main() {
+	//インスタンス取得
+	SceneManager* sceneManager = SceneManager::GetInstance();
+	
+	int nextSceneNo = 1;
 
-	//ランダム
-	srand((unsigned int)time(NULL));
-	int ramdom = rand() % 6 + 1;
-
-	//時間
-	int second = 3;
-
-
-	//奇数か偶数か入力
-	int predict = 0;
-	printf("奇数だと思うなら1を、偶数だと思うなら２を入力してください。");
-	scanf_s("%d", &predict);
-
-
-
-	//結果判定と出力
-	std::function<void(int)>Result = [=](int ramdom) {
-
-		//奇数の場合
-		if (predict == 1) {
-			if (ramdom % 2 == 1) {
-				printf("正解です!\n%dが抽選で選ばれました", ramdom);
-			}
-			else {
-				printf("不正解です\n%dが抽選で選ばれました", ramdom);
-			}
+	while (true) {
+		//待つ
+		Sleep(2 * 1000);
+		//表示
+		if (sceneManager->sceneNo % 4 == 0) {
+			printf("sceneNo:%d--Title\n", sceneManager->sceneNo % 4);
+		}else if (sceneManager->sceneNo % 4 == 1) {
+			printf("sceneNo:%d--NewGame\n", sceneManager->sceneNo % 4);
 		}
-
-		//偶数の場合
-		else if (predict == 2) {
-			if (ramdom % 2 == 0) {
-				printf("正解です!\n%dが抽選で選ばれました", ramdom);
-			}
-			else {
-				printf("不正解です\n%dが抽選で選ばれました", ramdom);
-			}
+		else if(sceneManager->sceneNo % 4 == 2) {
+			printf("sceneNo:%d--GamePlay\n", sceneManager->sceneNo % 4);
 		}
-		//違う値が入力された場合
-		else {
-			printf("不適切な値が入力されました");
+		else if(sceneManager->sceneNo % 4 == 3) {
+			printf("sceneNo:%d--GameClear\n", sceneManager->sceneNo % 4);
 		}
-		return 0;
-	};
+		//シーンチェンジ
+		sceneManager->ChangeScene(nextSceneNo);
+		nextSceneNo++;
+	}
 
-	//時間を置く
-	std::function<void(int, std::function<void(int)>)>SetTimeout = [=](int second, std::function<void(int)> Result)
-	{
-		Sleep(second * 1000);
-		
-		Result(ramdom);
-	};
-
-
-	//時間を置く呼び出し
-	SetTimeout(second,Result);
-
+	system("pause");
 	return 0;
 }
