@@ -1,10 +1,9 @@
 #pragma once
 class Enemy
 {
-public:
-	static int enemyCount;
+public://メンバ関数
 
-	Enemy() { enemyCount++; }
-	~Enemy(){ enemyCount=0; }
+private://メンバ関数ポインタ
+	void(Enemy::* PFunc)();
 };
 
