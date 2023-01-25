@@ -5,15 +5,15 @@
 #include<functional>
 #include"Enemy.h"
 
-int Enemy::enemyCount;
+int Enemy::enemyCount = 0;
 
 int main() {
-	Enemy *enemy1=new Enemy;
-	Enemy *enemy2 = new Enemy;
-	Enemy *enemy3 = new Enemy;
+	Enemy* enemy1 = new Enemy();
+	Enemy* enemy2 = new Enemy();
+	Enemy* enemy3 = new Enemy();
 	int number = 0;
 
-	printf("Œ»İ‚Ì“G‚Ì”:%d\n",Enemy::enemyCount);
+	printf("Œ»İ‚Ì“G‚Ì”:%d\n", Enemy::enemyCount);
 
 	printf("1~3‚Ì”š‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢\n");
 	scanf_s("%d", &number);
